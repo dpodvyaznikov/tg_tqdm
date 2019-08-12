@@ -50,8 +50,8 @@ Video guide:
 2) Write to him `/start` and one more message
 3) Run this code (where TELEGRAM_BOT_TOKEN from prev step)
 ```
-import telepot
-bot = telepot.Bot(TELEGRAM_BOT_TOKEN)
-bot.getUpdates()[0]['message']['chat']['id']
+import requests
+r = requests.post('https://api.telegram.org/bot%s/getUpdates' % TELEGRAM_BOT_TOKEN)
+r.json()['result'][0]['message']['from']['id']
 ```
 4) Result is you CHAT_ID
