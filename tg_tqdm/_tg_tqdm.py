@@ -11,7 +11,8 @@ class _TelegramIO():
         self.chat_id = chat_id
         self.text = self.prev_text = '<< Init tg_tqdm bar >>'
         self.proxies = dict(https=proxy_url) if proxy_url else None
-        r = requests.post('https://api.telegram.org/bot%s/sendMessage' % self.token,
+        self.requests_session = requests.Session()
+        r = self.requests_session.post('https://api.telegram.org/bot%s/sendMessage' % self.token,
                           json=dict(text=self.text, chat_id=self.chat_id),
                           proxies=self.proxies, timeout=_TelegramIO.TIMEOUT)
         self.message_id = r.json()['result']['message_id']
@@ -25,7 +26,7 @@ class _TelegramIO():
     def update_message(self):
         try:
             updated_text = self.text + '\nLast update: {}'.format(datetime.now()) if self.show_last_update else ''
-            requests.post('https://api.telegram.org/bot%s/editMessageText' % self.token,
+            self.requests_session.post('https://api.telegram.org/bot%s/editMessageText' % self.token,
                           json=dict(text=updated_text, chat_id=self.chat_id, message_id=self.message_id),
                           proxies=self.proxies, timeout=_TelegramIO.TIMEOUT)
         except Exception as e:
