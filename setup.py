@@ -37,7 +37,7 @@ setup(
     keywords='progressbar progressmeter progress bar meter'
              ' rate eta console terminal time telegram',
     packages=['tg_tqdm'] + ['tg_tqdm.' + i for i in find_packages('tg_tqdm')],
-    install_requires=['tqdm', 'telepot'],
+    install_requires=['tqdm', 'requests'],
     project_urls={
         'Source': 'https://github.com/ermakovpetr/tg_tqdm/',
     },
